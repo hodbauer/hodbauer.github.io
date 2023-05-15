@@ -7,7 +7,15 @@
            * See instructions for running APIs Explorer code samples locally:
            * https://developers.google.com/explorer-help/code-samples#javascript
            */
-        
+
+          function init() {
+            const clientIdElement = document.querySelector('#clientId');
+            const clientId = clientIdElement.value;
+            gapi.load("client:auth2", function() {
+              gapi.auth2.init({client_id: clientId });
+            });
+          }
+
           function authenticate() {
             return gapi.auth2.getAuthInstance()
                 .signIn({scope: "https://www.googleapis.com/auth/photoslibrary https://www.googleapis.com/auth/photoslibrary.readonly https://www.googleapis.com/auth/photoslibrary.readonly.appcreateddata"})
@@ -45,16 +53,11 @@
                       },
                       function(err) { console.error("Execute error", err); });
           }
-          const clientIdElement = document.querySelector('#clientId');
-          const clientId = clientIdElement.value;
-          gapi.load("client:auth2", function() {
-            gapi.auth2.init({client_id: clientId });
-          });
         </script>        
     </head>
     <body>
         <input id="clientId"/>
-        <button onclick="authenticate().then(loadClient)">authorize and load</button>
+        <button onclick="init();authenticate().then(loadClient)">authorize and load</button>
         <button onclick="execute()">execute</button>
         <div id="content"></div>
     </body>
