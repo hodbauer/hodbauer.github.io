@@ -13,6 +13,7 @@
             const clientId = clientIdElement.value;
             gapi.load("client:auth2", function() {
               gapi.auth2.init({client_id: clientId });
+              authenticate().then(loadClient)
             });
           }
 
@@ -57,7 +58,7 @@
     </head>
     <body>
         <input id="clientId"/>
-        <button onclick="init();authenticate().then(loadClient)">authorize and load</button>
+        <button onclick="init()">authorize and load</button>
         <button onclick="execute()">execute</button>
         <div id="content"></div>
     </body>
