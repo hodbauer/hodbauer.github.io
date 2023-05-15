@@ -23,12 +23,16 @@
                 .then(function() { console.log("Sign-in successful"); },
                       function(err) { console.error("Error signing in", err); });
           }
+
           function loadClient() {
-            gapi.client.setApiKey("YOUR_API_KEY");
+            const apiKeyElement = document.querySelector('#apiKey');
+            const apiKey = apiKeyElement.value;
+            gapi.client.setApiKey(apiKey);
             return gapi.client.load("https://photoslibrary.googleapis.com/$discovery/rest?version=v1")
                 .then(function() { console.log("GAPI client loaded for API"); },
                       function(err) { console.error("Error loading GAPI client for API", err); });
           }
+
           // Make sure the client is loaded and sign-in is complete before calling this method.
           function execute() {
             return gapi.client.photoslibrary.mediaItems.search({
@@ -57,9 +61,20 @@
         </script>        
     </head>
     <body>
-        <input id="clientId"/>
-        <button onclick="init()">authorize and load</button>
-        <button onclick="execute()">execute</button>
-        <div id="content"></div>
+        <div>
+          <label>
+            Client Id:<input id="clientId"/>
+          </label>
+          <label>
+            Api Key:<input id="apiKey"/>
+          </label>
+        </div>
+        <div>
+          <button onclick="init()">init</button>
+          <button onclick="execute()">execute</button>  
+        </div>
+        <div>
+          <div id="content"></div>
+        </div>
     </body>
 </html>
