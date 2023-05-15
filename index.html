@@ -40,6 +40,8 @@
                 .then(function(response) {
                         // Handle the results here (response.result has the parsed body).
                         console.log("Response", response);
+                        const contentElement = document.querySelector('#content');
+                        contentElement.innerHTML = response.result;
                       },
                       function(err) { console.error("Execute error", err); });
           }
@@ -54,5 +56,6 @@
         <input id="clientId"/>
         <button onclick="authenticate().then(loadClient)">authorize and load</button>
         <button onclick="execute()">execute</button>
+        <div id="content"></div>
     </body>
 </html>
